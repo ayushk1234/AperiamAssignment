@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+// import './style.css';
+// import Molstar from 'molstar-react';
+import MolecularViewer from './MolecularViewer';
+import ExcelFileParser from './FileRead'
+// import MolstarViewer from './MolstarViewer';
+// import { ProteinStructureViewer } from 'molstar-react';
+import BarGraph from './BarGraph';
+import DropdownMenu from './DropdownMenu';
+// export default function App() {
+//   return (
+//     <div>
+//       <h1>Hello StackBlitz!</h1>
+//       <p>Start editing to see some magic happen :)</sp>
 
-function App() {
+//       <div>
+//         <Molstar pdbId="1LOL" />
+//       </div>
+//     </div>
+//   );
+// }
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>hi</h1>
+      <DropdownMenu />
+      <DropdownMenu />
+      {/* <ProteinStructureViewer
+        pdbId="1btl" // Replace with the PDB ID of the protein structure you want to visualize
+        focusOn="polymer"
+      /> */}
+      <ExcelFileParser/>
+      {/* <BarGraph /> */}
+      
+      {/* <{    }/> */}
+
+      {/* <MolecularViewer /> */}
+      {/* <MolstarViewer /> */}
     </div>
+    // <div>
+    //   <Molstar pdbId="1LOL" />
+    // </div>
   );
-}
+};
 
 export default App;
