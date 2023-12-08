@@ -23,7 +23,7 @@ import DropdownMenu from './DropdownMenu';
 export const App = () => {
   return (
     <div>
-      <h1>hi</h1>
+      <h1>Aperiam Assignment</h1>
       <DropdownMenu />
       <DropdownMenu />
       {/* <ProteinStructureViewer

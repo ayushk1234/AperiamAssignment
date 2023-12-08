@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import BarGraph from './BarGraph';
 
-const ExcelFileParser = () => {
+const GptResponse = () => {
   const [excelData, setExcelData] = useState(null);
   const [uniqueObjects,setUniqueObjects]=useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -11,19 +11,24 @@ const ExcelFileParser = () => {
 //   var arrByID=null;
 
   var count = 0;
-  const handleItemClick =  (item) => {
+  const handleItemClick = async (item) => {
 
    
-    setSelectedItem(item);
+    setSelectedItem(()=>item);
     console.log(selectedItem)
-    // setArrById(excelData.filter(filterByID))
+    setArrById(()=>excelData.filter(filterByID))
 
-    // console.log(arrByID)
+    console.log(arrByID)
 
 
   };
 
-  const filterByID = (item)=> {
+//   useEffect(() => {
+//     // Your code that depends on the updated state
+//     console.log('Updated state:', yourState);
+//   }, [yourState]);
+
+  const filterByID= (item)=> {
       console.log(selectedItem['WT Res'],selectedItem['Res_No'])
       console.log(item['WT Res'],item['Res_No'])
 
@@ -31,22 +36,12 @@ const ExcelFileParser = () => {
         return true;
     }
 
+    // if (item) && item.id !== 0) {
+    //   return true;
+    // }
+    // invalidEntries++;
     return false;
   }
-
-  useEffect(() => {
-      
-    if(selectedItem){
-
-        setArrById(excelData.filter(filterByID))
-
-    
-    // Your code that depends on the updated state
-        console.log('Updated state:', selectedItem);
-    }
-    // console.log(arrByID)
-
-  }, [excelData,setArrById,selectedItem]);
 
 
   const handleFileUpload = (e) => {
@@ -116,7 +111,7 @@ const ExcelFileParser = () => {
     if (excelData) {
       displayValues(excelData);
     }
-  }, [excelData]);
+  }, [excelData,arrByID]);
 
   const displayValues = (data) => {
 
@@ -149,12 +144,12 @@ const ExcelFileParser = () => {
       <input type="file" accept=".xls, .xlsx,.csv" onChange={handleFileUpload} />
       {uniqueObjects && (
         <div>
-          <h2>Protein Sequence</h2>
-          {/* <h1> {typeof(uniqueObjects)}</h1> */}
+          <h2>Parsed Data:</h2>
+          <h1> {typeof(uniqueObjects)}</h1>
           <div  style={{ display: 'flex', flexWrap: 'wrap' }} >{uniqueObjects.map((item,key)=>
           {
               count++
-              return(<p key={item['Res_No']} style={{ marginRight: '2px', marginBottom: '10px', cursor: 'pointer' }} onClick={ () => handleItemClick(item)}>
+              return(<p key={item['Res_No']} style={{ marginRight: '2px', marginBottom: '10px', cursor: 'pointer' }} onClick={async  () =>await  handleItemClick(item)}>
                 {(count%10==0)?<div>{item['Res_No']}</div>:<div>{  }</div>}
                 <div style={{  border: '1px solid #ccc' ,marginRight: '2px', marginBottom: '10px',backgroundColor:"green" }}>{item['WT Res']}</div>
             </p>)
@@ -187,4 +182,4 @@ const ExcelFileParser = () => {
   );
 };
 
-export default ExcelFileParser;
+export default GptResponse;
