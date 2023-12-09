@@ -2,12 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import BarGraph from './BarGraph';
+import {zoomIn} from './MolecularViewer'
 
 const ExcelFileParser = () => {
   const [excelData, setExcelData] = useState(null);
   const [uniqueObjects,setUniqueObjects]=useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [arrByID, setArrById] = useState(null);
+  var findProb=''
+                var higherProbMut=''
 //   var arrByID=null;
 
   var count = 0;
@@ -15,13 +18,16 @@ const ExcelFileParser = () => {
 
    console.log(item)
     setSelectedItem(item);
-    console.log(selectedItem)
+    zoomIn(item)
+    // console.log(selectedItem)
     // setArrById(excelData.filter(filterByID))
 
     // console.log(arrByID)
 
 
   };
+
+  // export const zoomIn 
 
   const filterByID = (item)=> {
     //   console.log(selectedItem['WT Res'],selectedItem['Res_No'])
@@ -42,7 +48,7 @@ const ExcelFileParser = () => {
 
     
     // Your code that depends on the updated state
-        console.log('Updated state:', selectedItem);
+        // console.log('Updated state:', selectedItem);
     }
     // console.log(arrByID)
 
@@ -114,7 +120,7 @@ const ExcelFileParser = () => {
 
   useEffect(() => {
     if (excelData) {
-        console.log(excelData)
+        // console.log(excelData)
       displayValues(excelData);
     }
   }, [excelData]);
@@ -156,7 +162,7 @@ const ExcelFileParser = () => {
       <div >
       {uniqueObjects && (
         <div >
-          <h2>Protein Sequence</h2>
+          <h3>Protein Sequence</h3>
           <div style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '20px' , display: 'flex'}}>
           {/* <h1> {typeof(uniqueObjects)}</h1> */}
           <div  style={{ display: 'flex', flexWrap: 'wrap' , flex: '3',margin:'2px'}} >{uniqueObjects.map((item,key)=>
@@ -167,19 +173,16 @@ const ExcelFileParser = () => {
 
 
                 // excelData.map((item,key)=>{})
-                var findProb=''
-                // var highestProb
+                // var findProb=''
+                // var higherProbMut=''
                 const findsameProb =   excelData.filter((e,key)=>{
                     
                     if(item['WT Res'] === e['WT Res'] && item['Res_No'] === e['Res_No'] ){
                         if(e['WT Res'] == e['Mut Res']){
                             findProb =   parseFloat(e['Prob_Mut'])
+                            console.log(findProb)
                         }
-                        // else(
-                        //     var temprpob = parseFloat(e['Prob_Mut'])
-                        //     highestProb= 
-
-                        // )
+                        
                         
                         return true
 
@@ -188,33 +191,16 @@ const ExcelFileParser = () => {
                 // console.log(findsameProb)
             })
             // var findProb = ''
-            const highestProb =findsameProb.reduce((maxId, currentItem) => {
-                
-                
-                const currentProb = currentItem['WT Res'] != currentItem['Mut Res'] ? parseFloat(currentItem['Prob_Mut']) : 0;
-
-                // if(currentItem['Res_No']=="283" )
-                // {
-                    
-                //      console.log('------------')
-                //      console.log(currentProb)
-                //     console.log(currentItem['WT Res'],currentItem['Mut Res'],currentItem['Prob_Mut'],findProb)
-                //     }
-                // console.log(sameMutProb,currentId) // Assuming 'id' property exists on objects
-                return currentProb > findProb ? currentProb : currentProb;
-              }, 0);
-
-            //   const highrer = 
-               
-            //   console.log(findProb)
-            if(item['Res_No']=="283" )
-            {
-                
-                 console.log('}}}}}}}}}}}}}}}}----')
-                 console.log(item['Res_No'],findProb)
-                // console.log(currentItem['WT Res'],currentItem['Mut Res'],currentItem['Prob_Mut'],)
-            }
-              return  highestProb > findProb ? 'green' : '#fd5c63';
+            const highestProb =findsameProb.filter((currentItem,key ) => {
+                if( currentItem['WT Res'] != currentItem['Mut Res'])
+                {
+                    if(currentItem['Prob_Mut'] > findProb)
+                      {
+                          return true
+                      }
+                    }
+              });
+              return  highestProb.length>0 ? 'green' : '#fd5c63';
 
               };
               return(<p key={item['Res_No']} style={{ marginRight: '2px', marginBottom: '5px', cursor: 'pointer',display:'fix' }} onClick={ () => handleItemClick(item)}>
@@ -231,7 +217,7 @@ const ExcelFileParser = () => {
       {arrByID  && (
           <div style={{ border: '1px solid #ccc',padding: '10px',flex:4 }}>
         <div style={{ marginLeft: '10px', border: '1px solid #ccc', padding: '10px' }}>
-       <BarGraph arr={arrByID} />
+       <BarGraph arr={arrByID} findProb={findProb}/>
           {/* Render your bar chart based on selectedItem */}
           <h4>{selectedItem['WT Res']}</h4>
           {/* Add your bar chart components here */}

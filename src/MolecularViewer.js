@@ -6,6 +6,9 @@ import React, {
 import * as NGL from 'ngl';
 
 
+let stage=''
+let compo = ''
+
 
 const MolecularViewer = () => {
     const [getStage, setGetStage] = useState(null);
@@ -83,7 +86,7 @@ const MolecularViewer = () => {
 
 
 
-        const stage = new NGL.Stage('newport');
+        stage = new NGL.Stage('newport');
         // console.log(stage)C:\Users\aaka\Downloads\newCodebases\my-ngl-project\1btl.pdb
         // C:\Users\aaka\Downloads\newCodebases\my-ngl-project\src\MolecularViewer.js
         const pdbFilePath = '../1btl.pdb'; // Update the path to your .pdb file
@@ -95,6 +98,7 @@ const MolecularViewer = () => {
                         colorScheme: 'bfactor'
                     });
                     comp.autoView();
+                    compo = comp
 
                     setGetStage(comp)
       } );
@@ -121,25 +125,25 @@ const MolecularViewer = () => {
     }, []);
 
 
-    const handleZoom = (position=1) => {
-        console.log(getStage)
+    // const handleZoom = (position) => {
+    //     console.log(getStage)
 
-        if (getStage) {
+    //     if (getStage) {
             
-                // Get the atom based on the index
-                const atom = getStage.viewer;
-                var atomProxy = getStage.structure.getAtomProxy(26)
-                console.log(atomProxy.qualifiedName())
-                // console.log(atom)
-                // Zoom to the atom's position
-                // getStage.zoomTo(atom, 1000); // Adjust the duration as needed
+    //             // Get the atom based on the index
+    //             const atom = getStage.viewer;
+    //             var atomProxy = getStage.structure.getAtomProxy(26)
+    //             const position = stage.viewer.controls.getPositionOnAtom(index);
+    //             console.log(atomProxy.qualifiedName())
+    //             // console.log(atom)
+    //             // Zoom to the atom's position
+    //             // getStage.zoomTo(atom, 1000); // Adjust the duration as needed
               
-            // Zoom in to the specified position
-            var sn = getStage.getZoom();
-            console.log(sn) // Adjust the duration as needed
-          }
-      };
-
+    //         // Zoom in to the specified position
+    //         var sn = getStage.getZoom();
+    //         console.log(sn) // Adjust the duration as needed
+    //       }
+    //   };
 
 
 
@@ -187,15 +191,46 @@ const MolecularViewer = () => {
      
 
     return (
-    <div >
+    <div  >
         <button onClick={()=>handleZoom()}>clickss</button>
    
-        <div id = "newport"  style={{height:'400px',width:'600px' ,overflow: 'auto'}} >
+        <div id = "newport"  style={{height:'400px',width:'600px'  ,padding:'10px' , overflow:'scroll'}} >
 
-        
     
     </div>
     </div>)
 };
 
 export default MolecularViewer;
+
+
+
+export const zoomIn = (index)=>{
+
+        console.log(`in zoom ${index['WT Res']}`)  
+        handleZoom(index['Res_No'])
+
+      } 
+
+
+const handleZoom = async (index) => {
+        console.log(compo)
+
+        if (compo) {
+            
+                // Get the atom based on the index
+                const atom = compo.controls;
+                var atomProxy =  compo.structure
+                                // const position = stage.viewer.structure.getAtomProxy().position;
+                // const position = await compo.viewer;
+                console.log(atomProxy)
+                // console.log(atomProxy.qualifiedName())
+                console.log(atom)
+                // Zoom to the atom's position
+                // compo.zoomTo(position, 1000); // Adjust the duration as needed
+              
+            // Zoom in to the specified position
+            var sn = compo.getZoom();
+            console.log(sn) // Adjust the duration as needed
+          }
+      };
