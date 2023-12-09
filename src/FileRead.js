@@ -13,7 +13,7 @@ const ExcelFileParser = () => {
   var count = 0;
   const handleItemClick =  (item) => {
 
-   
+   console.log(item)
     setSelectedItem(item);
     console.log(selectedItem)
     // setArrById(excelData.filter(filterByID))
@@ -24,8 +24,8 @@ const ExcelFileParser = () => {
   };
 
   const filterByID = (item)=> {
-      console.log(selectedItem['WT Res'],selectedItem['Res_No'])
-      console.log(item['WT Res'],item['Res_No'])
+    //   console.log(selectedItem['WT Res'],selectedItem['Res_No'])
+    //   console.log(item['WT Res'],item['Res_No'])
 
     if(item['WT Res'] === selectedItem['WT Res'] && item['Res_No'] === selectedItem['Res_No']){
         return true;
@@ -114,6 +114,7 @@ const ExcelFileParser = () => {
 
   useEffect(() => {
     if (excelData) {
+        console.log(excelData)
       displayValues(excelData);
     }
   }, [excelData]);
@@ -143,46 +144,126 @@ const ExcelFileParser = () => {
 
 
 
+
+
   return (
+
     <div>
+        <p > Please upload your Enet  file</p>
       <input type="file" accept=".xls, .xlsx,.csv" onChange={handleFileUpload}  />
-      <input type="file" accept=".xls, .xlsx,.csv" onChange={handleFileUpload} />
+      {/* <input type="file" accept=".xls, .xlsx,.csv" onChange={handleFileUpload} /> */}
+
+      <div >
       {uniqueObjects && (
-        <div>
+        <div >
           <h2>Protein Sequence</h2>
+          <div style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '20px' , display: 'flex'}}>
           {/* <h1> {typeof(uniqueObjects)}</h1> */}
-          <div  style={{ display: 'flex', flexWrap: 'wrap' }} >{uniqueObjects.map((item,key)=>
+          <div  style={{ display: 'flex', flexWrap: 'wrap' , flex: '3',margin:'2px'}} >{uniqueObjects.map((item,key)=>
           {
               count++
-              return(<p key={item['Res_No']} style={{ marginRight: '2px', marginBottom: '10px', cursor: 'pointer' }} onClick={ () => handleItemClick(item)}>
-                {(count%10==0)?<div>{item['Res_No']}</div>:<div>{  }</div>}
-                <div style={{  border: '1px solid #ccc' ,marginRight: '2px', marginBottom: '10px',backgroundColor:"green" }}>{item['WT Res']}</div>
+            //   console.log(item)
+              const getBackgroundColor = () => {
+
+
+                // excelData.map((item,key)=>{})
+                var findProb=''
+                // var highestProb
+                const findsameProb =   excelData.filter((e,key)=>{
+                    
+                    if(item['WT Res'] === e['WT Res'] && item['Res_No'] === e['Res_No'] ){
+                        if(e['WT Res'] == e['Mut Res']){
+                            findProb =   parseFloat(e['Prob_Mut'])
+                        }
+                        // else(
+                        //     var temprpob = parseFloat(e['Prob_Mut'])
+                        //     highestProb= 
+
+                        // )
+                        
+                        return true
+
+                }
+
+                // console.log(findsameProb)
+            })
+            // var findProb = ''
+            const highestProb =findsameProb.reduce((maxId, currentItem) => {
+                
+                
+                const currentProb = currentItem['WT Res'] != currentItem['Mut Res'] ? parseFloat(currentItem['Prob_Mut']) : 0;
+
+                // if(currentItem['Res_No']=="283" )
+                // {
+                    
+                //      console.log('------------')
+                //      console.log(currentProb)
+                //     console.log(currentItem['WT Res'],currentItem['Mut Res'],currentItem['Prob_Mut'],findProb)
+                //     }
+                // console.log(sameMutProb,currentId) // Assuming 'id' property exists on objects
+                return currentProb > findProb ? currentProb : currentProb;
+              }, 0);
+
+            //   const highrer = 
+               
+            //   console.log(findProb)
+            if(item['Res_No']=="283" )
+            {
+                
+                 console.log('}}}}}}}}}}}}}}}}----')
+                 console.log(item['Res_No'],findProb)
+                // console.log(currentItem['WT Res'],currentItem['Mut Res'],currentItem['Prob_Mut'],)
+            }
+              return  highestProb > findProb ? 'green' : '#fd5c63';
+
+              };
+              return(<p key={item['Res_No']} style={{ marginRight: '2px', marginBottom: '5px', cursor: 'pointer',display:'fix' }} onClick={ () => handleItemClick(item)}>
+                {(count%10==0)?<div style={{fontSize:'12px'}}>{item['Res_No']}</div>: null}
+                <div style={{ fontWeight: 'bold', border: '1px solid #ccc' ,marginRight: '2px',borderRadius: '50%',textAlign: 'center',marginBottom: '5px',fontSize: '14px', paddingRight:'2px', paddingLeft:'2px',backgroundColor:  getBackgroundColor()}}>{item['WT Res']}</div>
             </p>)
           })
           }</div>
 
-        {/* {yourArray.map((item, key) => (
-        <div key={key} style={{ marginRight: '10px', marginBottom: '10px', cursor: 'pointer' }} onClick={() => handleItemClick(item)}>
-          {/* Your item content here */}
-          {/* {item['WT Res']}
-        </div> */}
-      {/* ))} */} 
+        
       
 
       {/* Side panel with bar chart */}
       {arrByID  && (
-        <div style={{ marginLeft: '20px', border: '1px solid #ccc', padding: '10px' }}>
+          <div style={{ border: '1px solid #ccc',padding: '10px',flex:4 }}>
+        <div style={{ marginLeft: '10px', border: '1px solid #ccc', padding: '10px' }}>
        <BarGraph arr={arrByID} />
           {/* Render your bar chart based on selectedItem */}
-          <h3>{selectedItem['WT Res']}</h3>
+          <h4>{selectedItem['WT Res']}</h4>
           {/* Add your bar chart components here */}
+            </div>
+          <div style={{display:'flex', flexWrap: 'wrap' ,marginLeft: '10px'}}>
+            <div>Explanation</div>
+                {arrByID.map((item,key)=>{
+
+                // return (<p key={item['id']} style={{  border: '1px solid #ccc' ,borderRadius: '20%', marginBottom: '5px', cursor: 'pointer',display:'fix' }} onClick={ () => handleItemClick(item)}>{item['Gpt_response']}</p>)
+                const gptResponse = item['Gpt_response'];
+
+                // Only render if gptResponse is present
+                if (gptResponse !== undefined && gptResponse !== null && gptResponse !== '') {
+                  return (
+                    <p key={item['id']} style={{backgroundColor : '',width: '200px', height: '80px',margin:'10px', border: '1px solid #ccc', borderRadius: '5%', marginBottom: '5px', cursor: 'pointer', display: 'wrap',textAlign:'left',padding:'2px' }}>
+                     {item['Mutation']} {gptResponse}
+                    </p>
+                  );
+                }
+              
+                return null;
+          })}</div>
         </div>
       )}
 
-        </div>
+      
+      </div>
+    </div>
           
-        // </div>
+        
       )}
+      </div>
     </div>
   );
 };

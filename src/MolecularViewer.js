@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 
-// import NGL from 'ngl';
+import NGL from 'ngl';
 
 // const MolecularViewer = () => {
 //   useEffect(() => {
