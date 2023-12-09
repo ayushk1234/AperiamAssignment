@@ -57,7 +57,7 @@ const BarGraph = ({arr}) => {
           anchor: 'end',
           display: 'auto',
           formatter: (value, context) => {
-              console.log(value,context)
+            //   console.log(value,context)
             return value; // Display the actual value on the bar
           },
         },

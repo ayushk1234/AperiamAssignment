@@ -219,7 +219,7 @@ const ExcelFileParser = () => {
               };
               return(<p key={item['Res_No']} style={{ marginRight: '2px', marginBottom: '5px', cursor: 'pointer',display:'fix' }} onClick={ () => handleItemClick(item)}>
                 {(count%10==0)?<div style={{fontSize:'12px'}}>{item['Res_No']}</div>: null}
-                <div style={{ fontWeight: 'bold', border: '1px solid #ccc' ,marginRight: '2px',borderRadius: '50%',textAlign: 'center',marginBottom: '5px',fontSize: '14px', paddingRight:'2px', paddingLeft:'2px',backgroundColor:  getBackgroundColor()}}>{item['WT Res']}</div>
+                <div style={{  border: '1px solid #ccc' ,marginRight: '2px',borderRadius: '50%',textAlign: 'center',marginBottom: '5px',fontSize: '14px', paddingRight:'2px', paddingLeft:'2px',backgroundColor:  getBackgroundColor()}}>{item['WT Res']}</div>
             </p>)
           })
           }</div>
@@ -246,7 +246,7 @@ const ExcelFileParser = () => {
                 // Only render if gptResponse is present
                 if (gptResponse !== undefined && gptResponse !== null && gptResponse !== '') {
                   return (
-                    <p key={item['id']} style={{backgroundColor : '',width: '200px', height: '80px',margin:'10px', border: '1px solid #ccc', borderRadius: '5%', marginBottom: '5px', cursor: 'pointer', display: 'wrap',textAlign:'left',padding:'2px' }}>
+                    <p key={item['id']} style={{backgroundColor : 'rgba(99, 255, 132, 0.6)',width: '200px', height: '80px',margin:'10px', border: '1px solid #ccc', borderRadius: '5%', marginBottom: '5px', cursor: 'pointer', display: 'wrap',textAlign:'left',padding:'2px' }}>
                      {item['Mutation']} {gptResponse}
                     </p>
                   );

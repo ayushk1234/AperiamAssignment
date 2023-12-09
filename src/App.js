@@ -8,12 +8,13 @@ import GptResponse from './GptResponse';
 // import { ProteinStructureViewer } from 'molstar-react';
 import BarGraph from './BarGraph';
 import DropdownMenu from './DropdownMenu';
+// import 
 
 
 export const App = () => {
   return (
     <div>
-      <h1>Aperiam Assignment</h1>
+      <h2>Aperiam Assignment</h2>
       {/* <DropdownMenu /> */}
       {/* <DropdownMenu /> */}
       {/* <ProteinStructureViewer
@@ -28,7 +29,7 @@ export const App = () => {
       
       {/* <{    }/> */}
 
-      {/* <MolecularViewer /> */}
+      <MolecularViewer />
       {/* <MolstarViewer /> */}
     </div>
     // <div>
