@@ -150,7 +150,7 @@ const ProteinViewer = ({
     };
 
     return ( 
-        selectedItem && <div >
+         <div >
             {/* <div id={`viewport-${selectedItem ? selectedItem['Res_No'] : 'default'}`} style = {{ width: '500px',height: '300px',padding:'10px' , overflow:'hidden'}} > </div> */}
             <div id="viewport" style = {{ width: '500px',height: '500px',padding:'10px' , margin :'10px',overflow:'auto'}} > </div>
 
