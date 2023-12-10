@@ -2,6 +2,7 @@ import React from 'react';
 // import './style.css';
 // import Molstar from 'molstar-react';
 import MolecularViewer from './MolecularViewer';
+import ProteinViewer from './MolViewer';
 import ExcelFileParser from './FileRead'
 import GptResponse from './GptResponse';
 // import MolstarViewer from './MolstarViewer';
@@ -17,24 +18,12 @@ export const App = () => {
       <h2>Aperiam Assignment</h2>
       {/* <DropdownMenu /> */}
       {/* <DropdownMenu /> */}
-      {/* <ProteinStructureViewer
-        pdbId="1btl" // Replace with the PDB ID of the protein structure you want to visualize
-        focusOn="polymer"
-      /> */}
-
-      {/* <GptResponse/> */}
       <ExcelFileParser/>
+      {/* <MolecularViewer /> */}
+      {/* <ProteinViewer/> */}
       
-      {/* <BarGraph /> */}
-      
-      {/* <{    }/> */}
-
-      <MolecularViewer />
-      {/* <MolstarViewer /> */}
     </div>
-    // <div>
-    //   <Molstar pdbId="1LOL" />
-    // </div>
+   
   );
 };
 

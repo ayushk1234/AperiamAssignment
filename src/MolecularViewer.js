@@ -55,8 +55,7 @@ const MolecularViewer = () => {
 
      
 
-    //   // Load the protein structure from a .pdb file
-    //   const pdbFilePath = 'path/to/your/protein.pdb'; // Update the path to your .pdb file
+
     //   const component = await stage.loadFile('rcsb://1btl' )
     // //   .then( function( comp ){
     // //        comp.addRepresentation( "ball+stick", { multipleBond: true } )});
@@ -220,12 +219,21 @@ const handleZoom = async (index) => {
             
                 // Get the atom based on the index
                 const atom = compo.controls;
+                console.log(atom)
+                var view = compo.viewer
+                console.log(view)
                 var atomProxy =  compo.structure
+                console.log(atomProxy)
+
+                compo.addRepresentation("axes", {
+                     showAxes: false, showBox: true, radius: 0.2
+                  })
+                  compo.addRepresentation("ball+stick")
                                 // const position = stage.viewer.structure.getAtomProxy().position;
                 // const position = await compo.viewer;
-                console.log(atomProxy)
+                
                 // console.log(atomProxy.qualifiedName())
-                console.log(atom)
+                
                 // Zoom to the atom's position
                 // compo.zoomTo(position, 1000); // Adjust the duration as needed
               

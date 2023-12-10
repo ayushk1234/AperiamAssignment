@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import BarGraph from './BarGraph';
 import {zoomIn} from './MolecularViewer'
+import ProteinViewer from './MolViewer';
 
 const ExcelFileParser = () => {
   const [excelData, setExcelData] = useState(null);
@@ -18,7 +19,7 @@ const ExcelFileParser = () => {
 
    console.log(item)
     setSelectedItem(item);
-    zoomIn(item)
+    // handleAddRepresentation(item)
     // console.log(selectedItem)
     // setArrById(excelData.filter(filterByID))
 
@@ -47,7 +48,7 @@ const ExcelFileParser = () => {
         setArrById(excelData.filter(filterByID))
 
     
-    // Your code that depends on the updated state
+    
         // console.log('Updated state:', selectedItem);
     }
     // console.log(arrByID)
@@ -155,6 +156,7 @@ const ExcelFileParser = () => {
   return (
 
     <div>
+      <div>
         <p > Please upload your Enet  file</p>
       <input type="file" accept=".xls, .xlsx,.csv" onChange={handleFileUpload}  />
       {/* <input type="file" accept=".xls, .xlsx,.csv" onChange={handleFileUpload} /> */}
@@ -180,10 +182,9 @@ const ExcelFileParser = () => {
                     if(item['WT Res'] === e['WT Res'] && item['Res_No'] === e['Res_No'] ){
                         if(e['WT Res'] == e['Mut Res']){
                             findProb =   parseFloat(e['Prob_Mut'])
-                            console.log(findProb)
+                            // console.log(findProb)
                         }
-                        
-                        
+
                         return true
 
                 }
@@ -217,10 +218,10 @@ const ExcelFileParser = () => {
       {arrByID  && (
           <div style={{ border: '1px solid #ccc',padding: '10px',flex:4 }}>
         <div style={{ marginLeft: '10px', border: '1px solid #ccc', padding: '10px' }}>
-       <BarGraph arr={arrByID} findProb={findProb}/>
+       <BarGraph arr={arrByID} />
           {/* Render your bar chart based on selectedItem */}
           <h4>{selectedItem['WT Res']}</h4>
-          {/* Add your bar chart components here */}
+         
             </div>
           <div style={{display:'flex', flexWrap: 'wrap' ,marginLeft: '10px'}}>
             <div>Explanation</div>
@@ -229,7 +230,7 @@ const ExcelFileParser = () => {
                 // return (<p key={item['id']} style={{  border: '1px solid #ccc' ,borderRadius: '20%', marginBottom: '5px', cursor: 'pointer',display:'fix' }} onClick={ () => handleItemClick(item)}>{item['Gpt_response']}</p>)
                 const gptResponse = item['Gpt_response'];
 
-                // Only render if gptResponse is present
+                
                 if (gptResponse !== undefined && gptResponse !== null && gptResponse !== '') {
                   return (
                     <p key={item['id']} style={{backgroundColor : 'rgba(99, 255, 132, 0.6)',width: '200px', height: '80px',margin:'10px', border: '1px solid #ccc', borderRadius: '5%', marginBottom: '5px', cursor: 'pointer', display: 'wrap',textAlign:'left',padding:'2px' }}>
@@ -250,6 +251,10 @@ const ExcelFileParser = () => {
         
       )}
       </div>
+      </div>
+        <div>
+          <ProteinViewer selectedItem={selectedItem}/>
+          </div>
     </div>
   );
 };

@@ -18,10 +18,10 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const BarGraph = ({arr , findProb}) => {
+const BarGraph = ({arr}) => {
   // Chart.register(CategoryScale);
   // Sample data (replace this with your actual data)
-  console.log((arr))
+  // console.log((arr))
   const wtRes = arr?arr[0]['WT Res']:""
   const resNo = arr?arr[0]['Res_No']:""
   
@@ -37,7 +37,7 @@ const BarGraph = ({arr , findProb}) => {
 
         // return true
   })
-  console.log(findsameProb)
+  // console.log(findsameProb)
 
 
 
@@ -65,13 +65,13 @@ const BarGraph = ({arr , findProb}) => {
   const options = {
     plugins: {
         datalabels: {
-          color: 'black',
+          color: 'green',
           align: 'end',
           anchor: 'end',
           display: 'auto',
           formatter: (value, context) => {
             //   console.log(value,context)
-            return value; // Display the actual value on the bar
+            return value; 
           },
         },
       },
