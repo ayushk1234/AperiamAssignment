@@ -90,9 +90,9 @@ const ProteinViewer = ({
             // newStage.viewerControls.zoom(2)
             if (selectedItem) {
                 const position = new NGL.Vector3(
-                    -16, // Replace with the actual X coordinate
-                    -23, // Replace with the actual Y coordinate
-                  -15, )
+                    -1, // Replace with the actual X coordinate
+                    2, // Replace with the actual Y coordinate
+                  -1, )
                 // const atomIndex = selectedItem['Res_No']; // Replace with the actual atom index
                 const duration = 5000; // Duration of the animation in milliseconds
                 // console.log(new NGL.Selection(`_${atomIndex}`))
